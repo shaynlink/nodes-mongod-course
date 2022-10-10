@@ -69,7 +69,7 @@ const client = new MongoClient(uri);
 //     }
 // }
 
-// COURSE: Update Data in MongoDB
+// COURSE: Insert Data in MongoDB
 
 // async function run() {
 //     try {
@@ -94,23 +94,48 @@ const client = new MongoClient(uri);
 //     }
 // }
 
+// COURSE: Update Data in MongoDB
+
+// async function run() {
+//     try {
+//         await client.connect();
+//         // database and collection code goes here
+//         const db = client.db('sample_guides');
+//         const coll = db.collection('comets');
+//         // update code goes here
+//         const filter = { };
+//         const updateDoc = {
+//             $mul: {
+//                 radius: 1.60934
+//             }
+//         };
+
+//         const result = await coll.updateMany(filter, updateDoc);
+//         // amount deleted code goes here
+//         console.log('Number of documents updated: %s', result.modifiedCount);
+//     } finally {
+//         // Ensures that the client will close when you finish/error
+//         await client.close();
+//     }
+// }
+
 async function run() {
     try {
         await client.connect();
         // database and collection code goes here
         const db = client.db('sample_guides');
         const coll = db.collection('comets');
-        // update code goes here
-        const filter = { };
-        const updateDoc = {
-            $mul: {
-                radius: 1.60934
+        // delete code goes here
+        const doc = {
+            orbitalPeriod: {
+                $gt: 5,
+                $lt: 85
             }
         };
 
-        const result = await coll.updateMany(filter, updateDoc);
+        const result = await coll.deleteMany(doc);
         // amount deleted code goes here
-        console.log('Number of documents updated: %s', result.modifiedCount);
+        console.log('Number of documents deleted: %s', result.deletedCount);
     } finally {
         // Ensures that the client will close when you finish/error
         await client.close();
