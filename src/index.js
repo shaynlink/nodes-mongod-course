@@ -9,8 +9,12 @@ async function run() {
     try {
         await client.connect();
         // database and collection code goes here
+        const db = client.db('sample_guides');
+        const coll = db.collection('planets');
         // find code goes here
+        const cursor = coll.find();
         // iterate code goes here
+        await cursor.forEach(console.log);
     } finally {
         await client.close();
     }
