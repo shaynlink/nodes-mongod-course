@@ -1,0 +1,4 @@
+# all dependies of project
+node_modules/
+# .env file
+.env
